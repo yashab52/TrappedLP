@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Скованные | Trapped — Яков Ласкер</title>
+    <meta name="description" content="Политический фантастический триллер о двух врагах, которых война сковала одной цепью">
+    <link rel="canonical" href="https://trapped-book.com/">
+
+    <!-- Open Graph / Twitter: link previews on Facebook, Telegram, WhatsApp -->
+    <meta property="og:type" content="book">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Скованные">
+    <meta property="og:title" content="Скованные — Яков Ласкер">
+    <meta property="og:description" content="Политический фантастический триллер о двух врагах, которых война сковала одной цепью">
+    <meta property="og:url" content="https://trapped-book.com/">
+    <meta property="og:image" content="https://trapped-book.com/Trapped_Book_RU.jpg">
+    <meta property="og:image:width" content="1055">
+    <meta property="og:image:height" content="1491">
+    <meta property="og:image:alt" content="Обложка книги «Скованные»">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Скованные — Яков Ласкер">
+    <meta name="twitter:description" content="Политический фантастический триллер о двух врагах, которых война сковала одной цепью">
+    <meta name="twitter:image" content="https://trapped-book.com/Trapped_Book_RU.jpg">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛓️</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-bg-dark: #121315;          /* near-black concrete */
+            --color-bg-secondary: #1A1C1F;
+            --color-bg-elevated: #23262A;
+            --color-accent: #C9A46A;           /* sand / parchment — buttons, headings, links */
+            --color-accent-hover: #B38E55;
+            --color-laser: #E4572E;            /* red-orange laser line, hover glows */
+            --color-text: #ECE6DC;             /* warm off-white */
+            --color-text-secondary: #B9B2A6;
+            --color-border: #33363B;
+            --font-display: 'Oswald', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        @supports (overflow-x: clip) {
+            html { overflow-x: clip; }
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-bg-dark);
+            color: var(--color-text);
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Background: soft vignette (lighter center, darker edges) */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 45%, #1C1E21 0%, #151618 55%, #0B0C0D 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Background: concrete grain */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 220px 220px;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+
+        .tagline {
+            max-width: 900px;
+            margin: 0 auto 2.5rem;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            line-height: 1.8;
+            color: var(--color-text-secondary);
+            font-weight: 300;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .cta-button-hero {
+            display: inline-block;
+            padding: 1.1rem 3rem;
+            background: var(--color-accent);
+            color: var(--color-bg-dark);
+            text-decoration: none;
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            animation: fadeIn 1.4s ease-out 0.2s both;
+            box-shadow: 0 4px 20px rgba(228, 87, 46, 0.3);
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-button-hero:hover {
+            background: var(--color-accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(228, 87, 46, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Book Showcase */
+        .book-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            align-items: start;
+            margin: 0 0 4rem;
+            animation: fadeIn 1.4s ease-out 0.3s both;
+        }
+
+        @media (max-width: 900px) {
+            .book-showcase {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        .book-cover-container {
+            position: relative;
+            max-width: 450px;
+        }
+
+        .book-cover {
+            display: block;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                0 0 0 1px var(--color-border);
+            border-radius: 4px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .book-cover:hover {
+            transform: translateY(-10px);
+            box-shadow:
+                0 30px 80px rgba(228, 87, 46, 0.3),
+                0 0 0 1px var(--color-laser);
+        }
+
+        .book-info {
+            position: relative;
+            z-index: 1;
+            padding-top: 2rem;
+        }
+
+        .title-group {
+            margin-bottom: 2rem;
+        }
+
+        .book-title-ru {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--color-accent);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .author {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--color-text-secondary);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 2.5rem;
+        }
+
+        .description {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--color-text);
+        }
+
+        .description p {
+            margin-bottom: 1.2rem;
+        }
+
+        .description p:last-child {
+            color: var(--color-accent);
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* Access Sections */
+        .access-sections {
+            margin: 6rem 0;
+            animation: fadeIn 1.6s ease-out 0.6s both;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--color-text);
+        }
+
+        .access-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+
+        .access-card:hover {
+            border-color: var(--color-accent);
+        }
+
+        .access-header {
+            padding: 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.3s ease;
+        }
+
+        .access-header:hover {
+            background: var(--color-bg-elevated);
+        }
+
+        .access-header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .access-icon {
+            font-size: 2rem;
+        }
+
+        .access-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            color: var(--color-accent);
+            margin: 0;
+        }
+
+        .toggle-icon {
+            font-size: 1.5rem;
+            color: var(--color-text-secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .access-card.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .access-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+
+        /* --- FIX: Increased max-height significantly to prevent cutting off on mobile --- */
+        .access-card.active .access-content {
+            max-height: 10000px;
+            padding: 0 2rem 2rem;
+        }
+
+        .access-content-inner {
+            padding-top: 1rem;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .version-group {
+            margin-bottom: 2.5rem;
+        }
+
+        .version-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .version-title {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .platform-link {
+            display: block;
+            padding: 1rem 1.5rem;
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            color: var(--color-text);
+            text-decoration: none;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .platform-link:hover {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: var(--color-bg-dark);
+            transform: translateY(-2px);
+        }
+
+        .platform-icon {
+            width: 28px;
+            height: 28px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.75rem;
+        }
+
+        .contact-icon {
+            font-size: 1.2rem;
+        }
+
+        .contact-icon img {
+            width: 32px;
+            height: 32px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .instructions {
+            background: var(--color-bg-elevated);
+            padding: 2rem;
+            border-radius: 6px;
+            margin-top: 2rem;
+        }
+
+        .device-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .device-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .device-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--color-accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .instructions ol {
+            padding-left: 1.5rem;
+            color: var(--color-text-secondary);
+        }
+
+        .instructions li {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .instructions a {
+            color: var(--color-accent);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .instructions a:hover {
+            text-decoration: underline;
+        }
+
+        .download-link {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--color-bg-elevated);
+            color: var(--color-accent);
+            border: 1px solid var(--color-accent);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            transition: all 0.3s ease;
+
+            white-space: normal !important;
+            word-break: normal !important;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .download-link:hover {
+            background: var(--color-accent);
+            color: var(--color-bg-dark);
+            box-shadow: 0 4px 18px rgba(228, 87, 46, 0.3);
+        }
+
+        .purchase-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .coming-soon {
+            max-width: 760px;
+            margin: -0.5rem auto 0;
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 0 2rem;
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--color-border);
+            margin-top: 6rem;
+        }
+
+        .footer-contact {
+            margin-bottom: 2rem;
+        }
+
+        .footer-contact h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--color-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-link:hover {
+            color: var(--color-accent-hover);
+        }
+
+        .contact-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .hero {
+                padding: 2rem 0;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            .book-title-ru {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .access-header {
+                padding: 1.5rem;
+            }
+
+            .access-card.active .access-content {
+                padding: 0 1.5rem 1.5rem;
+            }
+
+            /* Make download links full width on mobile for better stacking */
+            .download-link {
+                display: block;
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="hero">
+            <p class="tagline">
+                7 октября. Война в Газе. Туннели, заложники, желтые ленточки. Израильтянин и палестинец — и каждый уверен, что правда только на его стороне. А если однажды очнуться в теле врага? Сможешь ли ты остаться собой — и остаться врагом?
+            </p>
+            <a href="#access-sections" class="cta-button-hero">Читать книгу</a>
+        </section>
+
+        <section class="book-showcase">
+            <div class="book-cover-container">
+                <img src="Trapped_Book_RU.jpg" alt="Обложка книги «Скованные»" class="book-cover" width="1055" height="1491">
+            </div>
+
+            <div class="book-info">
+                <div class="description">
+                    <p>Моше Шалит — инженер, офицер запаса, поселенец — три года назад потерял дочь в теракте. Экспериментальная установка в его подвале позволяет на час вернуться в прошлое, и он снова и снова пытается спасти Лизу. И снова и снова проигрывает.</p>
+
+                    <p>Седьмое октября. Моше уходит в Газу. В туннеле под Джабалией он оказывается лицом к лицу с Каримом — инженером ХАМАСа, который этот туннель строил. Палец на спусковом крючке, рука на взрывателе — и в этот миг они меняются телами.</p>
+
+                    <p>Обмены повторяются все чаще и длятся все дольше. Израильтянин живет жизнью палестинца в разрушенной Газе, палестинец — жизнью израильтянина в Тель-Авиве. Чтобы спасти свои семьи, заклятым врагам придется понять, что их связало — и кто стоит за этой связью.</p>
+
+                    <p>«Скованные» — политический фантастический триллер о двух врагах, которых война сковала одной цепью.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="access-sections" id="access-sections">
+            <h2 class="section-title">Читайте и слушайте</h2>
+
+            <!-- AUDIOBOOK: enable when the Russian audiobook is live -->
+            <!--
+            <div class="access-card" id="audiobook-card">
+                <div class="access-header" onclick="toggleCard('audiobook-card')">
+                    <div class="access-header-content">
+                        <span class="access-icon">🎧</span>
+                        <h3 class="access-title">Аудиокнига</h3>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="access-content">
+                    <div class="access-content-inner">
+
+                        <div style="margin-bottom: 2rem; text-align: center;">
+                            <a href="#TODO" target="_blank" class="platform-link" style="display: inline-flex; align-items: center; justify-content: center; width: 100%; max-width: 400px; padding: 1rem 1.5rem; text-align: left;">
+                                <img src="litres.png" alt="Litres" class="platform-icon" style="width: 36px; height: 36px; margin-right: 1rem;">
+                                <span style="font-size: 1.2rem; font-weight: 700; line-height: 1.2;">Слушать на Литрес</span>
+                            </a>
+                        </div>
+
+                        <div class="version-group">
+                            <h4 class="version-title">🎙️ Подкаст</h4>
+                            <p style="margin-bottom: 1.5rem;">Слушайте бесплатно в вашем любимом подкаст-плеере:</p>
+                            <div class="links-grid">
+                                <a href="#TODO" target="_blank" class="platform-link">
+                                    <img src="apple.svg" alt="Apple" class="platform-icon">
+                                    Apple Podcasts
+                                </a>
+                                <a href="#TODO" target="_blank" class="platform-link">
+                                    <img src="spotify.svg" alt="Spotify" class="platform-icon">
+                                    Spotify
+                                </a>
+                                <a href="#TODO" target="_blank" class="platform-link">
+                                    <img src="youtube.svg" alt="YouTube" class="platform-icon">
+                                    YouTube
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="version-group">
+                            <h4 class="version-title">📥 Скачать</h4>
+                            <p style="margin-bottom: 1.5rem;">Скачайте аудиокнигу и слушайте без интернета:</p>
+
+                            <div class="instructions">
+                                <div class="device-section">
+                                    <h5 class="device-title">🍏 Для iPhone</h5>
+                                    <ol>
+                                        <li>Установите приложение BookPlayer<br>
+                                            <a href="https://apps.apple.com/us/app/bookplayer/id1138219998" target="_blank">Ссылка на App Store</a><br>
+                                            Или найдите "BookPlayer" в App Store (синяя иконка с динамиком)
+                                        </li>
+                                        <li><strong>Скопируйте</strong> ссылку на аудиокнигу (не нажимайте, а удерживайте палец и выберите "Скопировать"):<br>
+                                            <div style="margin-top: 0.8rem;">
+                                                <code style="background: var(--color-bg-dark); padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.9rem;">#TODO</code>
+                                            </div>
+                                        </li>
+                                        <li>Откройте BookPlayer → Add (+) → Download from URL</li>
+                                        <li>Вставьте скопированную ссылку и нажмите Start Download<br>
+                                            (Скачивание займет 3-5 минут, не закрывайте приложение)
+                                        </li>
+                                        <li>После скачивания добавьте в Библиотеку (Library)</li>
+                                    </ol>
+                                </div>
+
+                                <div class="device-section">
+                                    <h5 class="device-title">🤖 Для Android</h5>
+                                    <ol>
+                                        <li><strong>Нажмите на ссылку</strong>, чтобы скачать файл книги на телефон:<br>
+                                            <div style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                                                <a href="#TODO" class="download-link">Скачать аудиокнигу</a>
+                                            </div>
+                                            (Подождите 3-5 минут, пока файл полностью скачается)
+                                        </li>
+                                        <li>Пока файл качается, установите Smart Audiobook Player<br>
+                                            <a href="https://play.google.com/store/apps/details?id=ak.alizandro.smartaudiobookplayer" target="_blank">Ссылка на Google Play</a><br>
+                                            Или найдите "Smart Audiobook Player" в Google Play (красная иконка)
+                                        </li>
+                                        <li>Откройте Smart Audiobook Player</li>
+                                        <li>При первом запуске выберите Корневую папку → Download (Загрузки)</li>
+                                        <li>Нажмите кнопку Обновить (круглая стрелка) — книга появится в библиотеке</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+
+            <div class="access-card active" id="ebook-card">
+                <div class="access-header" onclick="toggleCard('ebook-card')">
+                    <div class="access-header-content">
+                        <span class="access-icon">📖</span>
+                        <h3 class="access-title">Электронная книга</h3>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="access-content">
+                    <div class="access-content-inner">
+                        <!-- LITRES EBOOK: enable when live -->
+                        <!--
+                        <div style="margin-bottom: 2rem; text-align: center;">
+                            <a href="#TODO" target="_blank" class="platform-link" style="display: inline-flex; align-items: center; justify-content: center; width: 100%; max-width: 400px; padding: 1rem 1.5rem; text-align: left;">
+                                <img src="litres.png" alt="Litres" class="platform-icon" style="width: 36px; height: 36px; margin-right: 1rem;">
+                                <span style="font-size: 1.2rem; font-weight: 700; line-height: 1.2;">Читать на Литрес</span>
+                            </a>
+                        </div>
+                        -->
+
+                        <div class="version-group">
+                            <h4 class="version-title">📥 Скачать</h4>
+                            <p>Скачайте книгу бесплатно:</p>
+                            <a href="https://qrco.de/bh44oQ" target="_blank" class="download-link">Скачать EPUB</a>
+                            <a href="https://qrco.de/bh44pR" target="_blank" class="download-link">Скачать PDF</a>
+                            <a href="https://www.dropbox.com/scl/fi/asm5oevgbaik54soub07l/.pdf?rlkey=1zl7efb15bsji0t8idxym5vuh&amp;st=6mozcxql&amp;dl=1" target="_blank" class="download-link">Скачать синопсис</a>
+                        </div>
+
+                        <!-- PURCHASE: enable when the books are in stores -->
+                        <!--
+                        <div class="version-group">
+                            <h4 class="version-title">💰 Купить (поддержите автора)</h4>
+                            <p class="intro-text">Приобретите книгу на вашей любимой платформе и поддержите автора</p>
+                            <div class="purchase-options">
+                                <a href="#TODO" target="_blank" class="platform-link">
+                                    <img src="litres.png" alt="Litres" class="platform-icon">
+                                    Купить на Литрес
+                                </a>
+
+                                <a href="#TODO" target="_blank" class="platform-link">
+                                    Купить на Amazon Kindle
+                                </a>
+
+                                <a href="#TODO" target="_blank" class="platform-link">
+                                    <img src="rakutenkobo.svg" alt="Kobo" class="platform-icon">
+                                    Купить на Kobo
+                                </a>
+
+                                <a href="#TODO" target="_blank" class="platform-link">
+                                    <img src="google.svg" alt="Google" class="platform-icon">
+                                    Купить на Google Play
+                                </a>
+
+                                <a href="#TODO" target="_blank" class="platform-link">
+                                    <img src="apple.svg" alt="Apple" class="platform-icon">
+                                    Купить на Apple Books
+                                </a>
+
+                                <a href="#TODO" target="_blank" class="platform-link">
+                                    <img src="barnes-noble.svg" alt="Barnes & Noble" class="platform-icon">
+                                    Купить на Barnes & Noble
+                                </a>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                </div>
+            </div>
+
+            <p class="coming-soon">Скоро: аудиокнига на русском, электронная и аудиокнига на Литрес, издание на английском — на Amazon, Kobo и в других магазинах.</p>
+
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-contact">
+                <h3>Связаться с автором</h3>
+                <div class="contact-links">
+                    <a href="mailto:yashab@yahoo.com" class="contact-link">
+                        <span class="contact-icon">📧</span>
+                        <span>yashab@yahoo.com</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/yakovbecker/" target="_blank" rel="noopener noreferrer" class="contact-link">
+                        <span class="contact-icon">
+                            <img src="linkedin.svg" alt="LinkedIn">
+                        </span>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://www.facebook.com/yasha.becker.1" target="_blank" rel="noopener noreferrer" class="contact-link">
+                        <span class="contact-icon">
+                            <img src="facebook.svg" alt="Facebook">
+                        </span>
+                        <span>Facebook</span>
+                    </a>
+                </div>
+            </div>
+            <p>© 2026 Яков Ласкер. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for CTA button
+        document.querySelector('.cta-button-hero').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('access-sections').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+
+        function toggleCard(cardId) {
+            const card = document.getElementById(cardId);
+            const allCards = document.querySelectorAll('.access-card');
+            const wasActive = card.classList.contains('active');
+
+            // If opening the card, scroll to it first (before any changes)
+            if (!wasActive) {
+                card.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+
+            // Close all other cards
+            allCards.forEach(c => {
+                if (c.id !== cardId && c.classList.contains('active')) {
+                    c.classList.remove('active');
+                }
+            });
+
+            // Toggle current card after a small delay to allow scroll to start
+            setTimeout(() => {
+                card.classList.toggle('active');
+            }, 50);
+        }
+
+        // Open the ebook card by default
+        document.getElementById('ebook-card').classList.add('active');
+    </script>
+</body>
+</html>
