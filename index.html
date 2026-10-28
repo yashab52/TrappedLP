@@ -463,6 +463,32 @@
             gap: 1.5rem;
         }
 
+        .audio-note {
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .player-container {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background: var(--color-bg-dark);
+            border: 1px solid var(--color-accent);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .player-container.active {
+            display: block;
+        }
+
+        .player-container iframe {
+            display: block;
+            width: 100%;
+            border: none;
+        }
+
         .coming-soon {
             max-width: 760px;
             margin: -0.5rem auto 0;
@@ -550,6 +576,10 @@
                 padding: 0 1.5rem 1.5rem;
             }
 
+            .player-container {
+                padding: 0.75rem;
+            }
+
             /* Make download links full width on mobile for better stacking */
             .download-link {
                 display: block;
@@ -600,8 +630,6 @@
         <section class="access-sections" id="access-sections">
             <h2 class="section-title">Читайте и слушайте</h2>
 
-            <!-- AUDIOBOOK: enable when the Russian audiobook is live -->
-            <!--
             <div class="access-card" id="audiobook-card">
                 <div class="access-header" onclick="toggleCard('audiobook-card')">
                     <div class="access-header-content">
@@ -613,13 +641,28 @@
                 <div class="access-content">
                     <div class="access-content-inner">
 
+                        <!-- LITRES AUDIOBOOK: enable when live -->
+                        <!--
                         <div style="margin-bottom: 2rem; text-align: center;">
                             <a href="#TODO" target="_blank" class="platform-link" style="display: inline-flex; align-items: center; justify-content: center; width: 100%; max-width: 400px; padding: 1rem 1.5rem; text-align: left;">
                                 <img src="litres.png" alt="Litres" class="platform-icon" style="width: 36px; height: 36px; margin-right: 1rem;">
                                 <span style="font-size: 1.2rem; font-weight: 700; line-height: 1.2;">Слушать на Литрес</span>
                             </a>
                         </div>
+                        -->
 
+                        <div class="version-group">
+                            <h4 class="version-title">🎧 Слушать здесь</h4>
+                            <p style="margin-bottom: 1.5rem;">Начните слушать прямо сейчас в браузере:</p>
+                            <h5 style="font-size: 1.1rem; color: var(--color-accent); margin-bottom: 0.3rem;">Озвучка с ИИ</h5>
+                            <p class="audio-note">Она не идеальная, но слушать можно. Я работаю над озвучкой с Евгением Кулаковым и планирую выставить ее к концу 2026 года.</p>
+                            <div class="player-container active">
+                                <iframe title="Скованные — аудиокнига (озвучка с ИИ)" allowtransparency="true" height="315" width="100%" style="border: none; min-width: min(100%, 430px); height: 315px;" scrolling="no" data-name="pb-iframe-player" src="https://www.podbean.com/player-v2/?i=wcjzb-15deb3d-pbblog-playlist&amp;share=1&amp;download=0&amp;rtl=0&amp;fonts=Arial&amp;skin=1&amp;font-color=auto&amp;logo_link=episode_page&amp;order=serial&amp;limit=50&amp;filter=all&amp;ss=14dbe098719db9b903ee0366f2dbe673&amp;btn-skin=7&amp;size=315" loading="lazy" allowfullscreen=""></iframe>
+                            </div>
+                        </div>
+
+                        <!-- PODCAST + DOWNLOAD: enable when the audiobook is on podcast platforms -->
+                        <!--
                         <div class="version-group">
                             <h4 class="version-title">🎙️ Подкаст</h4>
                             <p style="margin-bottom: 1.5rem;">Слушайте бесплатно в вашем любимом подкаст-плеере:</p>
@@ -684,10 +727,10 @@
                                 </div>
                             </div>
                         </div>
+                        -->
                     </div>
                 </div>
             </div>
-            -->
 
             <div class="access-card active" id="ebook-card">
                 <div class="access-header" onclick="toggleCard('ebook-card')">
@@ -758,7 +801,7 @@
                 </div>
             </div>
 
-            <p class="coming-soon">Скоро: аудиокнига на русском, электронная и аудиокнига на Литрес, издание на английском — на Amazon, Kobo и в других магазинах.</p>
+            <p class="coming-soon">Скоро: аудиокнига в исполнении Евгения Кулакова, электронная и аудиокнига на Литрес, издание на английском — на Amazon, Kobo и в других магазинах.</p>
 
         </section>
     </div>
