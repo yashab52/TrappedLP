@@ -1,0 +1,6 @@
+# The whole site is public. No crawler is named individually, so every
+# crawler (search, user-triggered and AI-training) keeps its default access.
+User-agent: *
+Allow: /
+
+Sitemap: https://trapped-book.com/sitemap.xml
