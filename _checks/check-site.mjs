@@ -52,8 +52,11 @@ check(!/data-nosnippet/i.test(noComments), 'no data-nosnippet');
 
 console.log('\n== index.html: visible book and author information (no JavaScript needed)');
 const h1 = all(/<h1[^>]*>([\s\S]*?)<\/h1>/gi, body).map((m) => norm(m[1]));
-check(h1.length === 1 && h1[0] === 'Скованные', 'single <h1> "Скованные"', JSON.stringify(h1));
-check(visibleText.includes('Яков Ласкер'), 'author name visible');
+const EXPECTED_H1 = 'Скованные — роман Якова Ласкера';
+check(h1.length === 1 && h1[0] === EXPECTED_H1, `single <h1> "${EXPECTED_H1}"`, JSON.stringify(h1));
+const mainHtml = (body.match(/<main[\s>][\s\S]*?<\/main>/) || [''])[0];
+const footerHtml = (body.match(/<footer[\s>][\s\S]*?<\/footer>/) || [''])[0];
+check(/<h1[\s>]/.test(mainHtml) && !/<h1[\s>]/.test(footerHtml), '<h1> is inside <main>, not in <footer>');check(visibleText.includes('Яков Ласкер'), 'author name visible');
 check(visibleText.includes('Официальный сайт романа'), 'official-site statement visible');
 check(/<main[\s>]/.test(body), '<main> landmark present');
 const textFile = (f) => readFileSync(join(ROOT, f), 'utf8').replace(/\r/g, '').split('\n').map((l) => l.trim()).filter(Boolean);
@@ -110,7 +113,7 @@ check(danglingRefs.length === 0, 'all @id references resolve', danglingRefs.join
 const book = graph.find((n) => n['@type'] === 'Book') || {};
 const person = graph.find((n) => n['@type'] === 'Person') || {};
 const page = graph.find((n) => n['@type'] === 'WebPage') || {};
-check(book.name === h1[0], 'Book.name matches visible <h1>');
+check(Boolean(h1[0]) && h1[0].startsWith(book.name + ' '), 'visible <h1> starts with Book.name');
 check(visibleText.includes(person.name || '∅'), 'Person.name is visible on the page');
 check(book.author && book.author['@id'] === person['@id'], 'Book.author → Person');
 check(visibleText.includes(norm(book.description || '∅')), 'Book.description is visible text');
@@ -178,6 +181,8 @@ if (process.argv.includes('--live')) {
     if (home && home.status) {
         check(home.status === 200 && /text\/html/.test(home.headers.get('content-type')), 'homepage 200 text/html');
         check(!home.headers.get('x-robots-tag'), 'no X-Robots-Tag header');
+        const liveMain = (home.text.match(/<main[\s>][\s\S]*?<\/main>/) || [''])[0];
+        check(/<h1[\s>]/.test(liveMain), 'live page has an <h1> inside <main>');
         if (home.text.replace(/\r/g, '') === html.replace(/\r/g, '')) ok('live index.html matches local');
         else warn('live index.html differs from local (expected until the change is deployed)');
     }

@@ -593,18 +593,14 @@
             color: var(--color-text-secondary);
         }
 
-        /* Footer */
-        footer {
-            padding: 4rem 0 2rem;
+        /* Book title block: the page's <h1>, last part of <main>, styled as the top of the footer */
+        .book-identity {
+            padding: 4rem 0 3rem;
             text-align: center;
             color: var(--color-text-secondary);
             font-size: 0.9rem;
             border-top: 1px solid var(--color-border);
             margin-top: 6rem;
-        }
-
-        .footer-book {
-            margin-bottom: 3rem;
         }
 
         .footer-title {
@@ -615,13 +611,25 @@
             text-transform: uppercase;
             color: var(--color-accent);
             line-height: 1.2;
+            margin-bottom: 0.4rem;
         }
 
         .footer-author {
+            display: block;
+            font-family: var(--font-body);
             font-size: 0.95rem;
+            font-weight: 400;
             letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 0.4rem;
+            line-height: 1.7;
+            color: var(--color-text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 0 0 2rem;
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
         }
 
         .official-site {
@@ -722,7 +730,8 @@
     </style>
 </head>
 <body>
-    <main class="container">
+    <main>
+        <div class="container">
         <section class="hero">
             <p class="tagline">
                 7 октября. В туннеле под Газой израильский офицер и инженер ХАМАСа встречаются лицом к лицу. Через секунду каждый оказывается в теле врага.<br>
@@ -924,16 +933,18 @@
             <p class="coming-soon">Скоро: аудиокнига в исполнении Евгения Кулакова на Литрес, издание на английском — на Amazon, Kobo и в других магазинах.</p>
 
         </section>
+        </div>
+
+        <section class="book-identity" aria-labelledby="book-title">
+            <div class="container">
+                <h1 id="book-title" class="footer-title">Скованные <span class="footer-author">— роман Якова Ласкера</span></h1>
+                <p class="official-site">Официальный сайт романа. Рабочее название на английском — <span lang="en">Trapped</span>, автор — <span lang="en">Yakov Lasker</span>.</p>
+            </div>
+        </section>
     </main>
 
     <footer>
         <div class="container">
-            <div class="footer-book">
-                <h1 class="footer-title">Скованные</h1>
-                <p class="footer-author">Яков Ласкер</p>
-                <p class="official-site">Официальный сайт романа. Рабочее название на английском — <span lang="en">Trapped</span>, автор — <span lang="en">Yakov Lasker</span>.</p>
-            </div>
-
             <div class="footer-contact">
                 <h3>Связаться с автором</h3>
                 <div class="contact-links">
