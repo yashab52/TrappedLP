@@ -30,9 +30,13 @@ const norm = (s) => decode(s).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim
 
 const html = read('index.html');
 const noComments = html.replace(/<!--[\s\S]*?-->/g, '');
-const body = noComments.slice(noComments.indexOf('<body'));
-const visibleText = norm(body.replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<style[\s\S]*?<\/style>/gi, ''));
 const all = (re, s = noComments) => [...s.matchAll(re)];
+// GATE-aware: <template> content is not rendered, so page text and link checks use the body without templates.
+const fullBody = noComments.slice(noComments.indexOf('<body'));
+const templates = all(/<template\b[^>]*>([\s\S]*?)<\/template>/gi, fullBody).map((m) => m[1]).join('\n');
+const body = fullBody.replace(/<template\b[^>]*>[\s\S]*?<\/template>/gi, '');
+const gated = /\bdata-gate-full\b/.test(fullBody); // GATE-aware: coming-soon gate is on
+const visibleText = norm(body.replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<style[\s\S]*?<\/style>/gi, ''));
 const meta = (attr, name) => all(new RegExp(`<meta\\s+${attr}="${name}"\\s+content="([^"]*)"`, 'gi')).map((m) => decode(m[1]));
 
 console.log('\n== index.html: language, title, description, canonical');
@@ -74,7 +78,27 @@ const refs = all(/\b(?:href|src)="([^"]+)"/gi).map((m) => decode(m[1]))
 const missingRefs = [...new Set(refs)].filter((u) => !existsSync(join(ROOT, u.split(/[?#]/)[0])));
 check(missingRefs.length === 0, `${new Set(refs).size} local href/src targets exist`, missingRefs.join(', '));
 const downloads = ['https://qrco.de/bh44oQ', 'https://qrco.de/bh44pR'];
-for (const u of downloads) check(body.includes(`href="${u}"`), 'download link present: ' + u);
+const DROPBOX = 'https://www.dropbox.com/scl/fi/asm5oevgbaik54soub07l/.pdf?rlkey=1zl7efb15bsji0t8idxym5vuh&amp;st=6mozcxql&amp;dl=1';
+const LITRES = 'https://www.litres.ru/book/yakov-lasker/skovannye-74687337/';
+if (!gated) {
+    for (const u of downloads) check(body.includes(`href="${u}"`), 'download link present: ' + u);
+} else {
+    // GATE-aware: coming-soon gate is on
+    console.log('\n== index.html: coming-soon gate is ON (data-gate-full present)');
+    const hrefs = all(/\bhref="([^"]*)"/gi, body).map((m) => m[1]);
+    const leaked = ['qrco.de', 'dropbox.com', 'litres.ru/book', 'podbean'].filter((d) => hrefs.some((h) => h.includes(d)));
+    check(leaked.length === 0, 'public part has no qrco.de / dropbox / Litres book / Podbean links', leaked.join(', '));
+    check(!/<iframe\b/i.test(body), 'public part has no <iframe>');
+    for (const u of [...downloads, DROPBOX, LITRES]) check(templates.includes(`href="${u}"`), 'gated template keeps link: ' + decode(u));
+    check(/<iframe\b[^>]*\bsrc="https:\/\/www\.podbean\.com\/player-v2\//i.test(templates), 'gated template keeps the Podbean iframe');
+    for (const t of [
+        'Электронная книга скоро будет доступна для скачивания в форматах PDF и EPUB. Загляните чуть позже!',
+        'Аудиокнига скоро появится. Сейчас я работаю над озвучкой вместе с Евгением Кулаковым.',
+    ]) check(visibleText.includes(t), 'coming-soon notice visible: ' + t.slice(0, 30) + '…');
+    check(/<!--\s*GATE:ORIGINAL\b/.test(html), 'GATE:ORIGINAL comment with the original metadata exists');
+    const head = noComments.slice(0, noComments.indexOf('<body'));
+    check(/<script>[\s\S]*?trapped_friend[\s\S]*?gate-friend[\s\S]*?<\/script>/.test(head), 'head gate script present');
+}
 
 console.log('\n== index.html: Open Graph / Twitter');
 check(meta('property', 'og:url')[0] === CANONICAL, 'og:url = canonical');
@@ -121,7 +145,10 @@ check(page.name === titles[0] && page.description === description, 'WebPage name
 check(page.url === CANONICAL && book.url === CANONICAL, 'WebPage.url and Book.url = canonical');
 const cover = byId[ORIGIN + '/#cover'] || {};
 check(existsSync(join(ROOT, String(cover.contentUrl || '').slice(ORIGIN.length + 1))), 'cover ImageObject points at an existing file');
-const ldUrls = [...(book.encoding || []).map((e) => e.contentUrl), ...(book.workExample || []).map((w) => w.url)];
+if (gated) { // GATE-aware: nothing to download while gated
+    check(!('encoding' in book) && !('workExample' in book), 'gate on: Book has no encoding / workExample');
+}
+const ldUrls =[...(book.encoding || []).map((e) => e.contentUrl), ...(book.workExample || []).map((w) => w.url)];
 const unlinked = ldUrls.filter((u) => !body.includes(`href="${u}"`));
 check(unlinked.length === 0, `all ${ldUrls.length} JSON-LD download/edition URLs are visible links`, unlinked.join(', '));
 check(!('sameAs' in book) && !('sameAs' in person), 'no sameAs claims (none verified)');
